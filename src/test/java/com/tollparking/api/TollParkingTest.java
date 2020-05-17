@@ -56,7 +56,7 @@ class TollParkingTest {
     void tollParkingTest() throws InterruptedException {
 
         //Initialization of the toll parking
-        Parking parking = new Parking(2,2,2, new PayByHoursWithFixedAmount(BigDecimal.valueOf(10),BigDecimal.valueOf(0.5)));
+        Parking parking = new Parking();
 
         List<Car> cars = new ArrayList<>();
         IntStream.range(0,CARS_QUANTITY).forEach(index -> cars.add(new Car(index, getRandomCarType())));

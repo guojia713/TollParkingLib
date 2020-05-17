@@ -12,6 +12,13 @@ public class PayByHours implements PricingPolicy {
 
     /**
      * Constructor
+     * Default value 0.5 dollars per hour
+     */
+    public PayByHours(){
+        this.hourPrice = BigDecimal.valueOf(0.5);
+    }
+    /**
+     * Constructor
      * @param hourPrice The price per hour
      */
     public PayByHours(BigDecimal hourPrice){

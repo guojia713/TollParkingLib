@@ -14,6 +14,14 @@ public class PayByHoursWithFixedAmount implements PricingPolicy {
 
     /**
      * Constructor
+     * Default values : fixedAmount = 5, hour price = 0.5
+     */
+    public PayByHoursWithFixedAmount(){
+        this.fixedAmount = BigDecimal.valueOf(5);
+        this.hourPrice = BigDecimal.valueOf(0.5);
+    }
+    /**
+     * Constructor
      * @param fixedAmount The fixed amount
      * @param hourPrice The price per hour
      */

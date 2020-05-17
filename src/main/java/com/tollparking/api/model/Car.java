@@ -25,6 +25,16 @@ public class Car {
 
     /**
      * Constructor
+     * Default values : carType = sedan car, carId = 1
+     */
+    public Car(){
+        this.carType = CarTypeEnum.SEDAN_CAR;
+        this.setCarID(1);
+        this.setParked(false);
+    }
+
+    /**
+     * Constructor
      * Set car type and init isParked
      * @param carType
      */

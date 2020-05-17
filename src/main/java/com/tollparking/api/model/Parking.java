@@ -23,7 +23,7 @@ public class Parking {
      */
     public Parking() {
         initParkingSlots(2, 2, 2);
-        this.pricingPolicy = new PayByHours(BigDecimal.valueOf(0.5));
+        this.pricingPolicy = new PayByHours();
     }
 
     /**
