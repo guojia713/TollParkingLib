@@ -54,6 +54,8 @@ The parking is initialized with default values and 10 cars.
 
 The number of parking entry equals 5 means so I create 5 threads for this test.
 
+The result will show in the log info.
+
 Run this end to end test using maven by this command :
 ```
 $ mvn -Dtest=TollParkingTest#tollParkingTest test
