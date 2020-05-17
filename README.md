@@ -41,7 +41,6 @@ Add this dependency to your project's build file:
 ```groovy
 implementation "com.tollparking.ap:tollparkinglib:1.0"
 ```
-## Documentation
 
 ## Usage 
 
