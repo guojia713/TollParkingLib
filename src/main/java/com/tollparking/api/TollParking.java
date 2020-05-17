@@ -117,7 +117,7 @@ public class TollParking {
 
         // Throw a exception if the car is not in the parking
         if (!parkingSlot.isPresent()) {
-            throw new TollParkingException("ATTENTION : The car number <" + car.getCarID() + " > is not in the toll parking");
+            throw new TollParkingException("CAR_NOT_FOUND", car.getCarID().toString());
         }
 
         // Free the parking slot
