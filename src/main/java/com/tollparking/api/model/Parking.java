@@ -15,21 +15,25 @@ public class Parking {
     private PricingPolicy pricingPolicy; // The pricing policies
 
     /**
-     * Initialization of the toll parking capacity
+     * Constructor
+     * Initialization of the toll parking by default
+     *
      * Set up 10 slots for each kinds of parking
-     * and the pricing policy = nb hours * hour price
+     * Set up the pricing policy = nb hours * hour price
      */
     public Parking() {
-        initParkingSlots(10, 10, 10);
+        initParkingSlots(2, 2, 2);
         this.pricingPolicy = new PayByHours(BigDecimal.valueOf(0.5));
     }
 
     /**
-     * Initialization of the toll parking capacity
+     * Constructor
+     * Initialization of the toll parking with the given parameters
      *
      * @param nbSedanCar         Number of the slots for sedan cars
      * @param nbElectricCar_20kw Number of the slots for electric cars with 20kw
      * @param nbElectricCar_50kw Number of the slots for electric cars with 50kw
+     * @param pricingPolicy      The pricing policy
      */
     public Parking(int nbSedanCar, int nbElectricCar_20kw, int nbElectricCar_50kw, PricingPolicy pricingPolicy) {
         initParkingSlots(nbSedanCar, nbElectricCar_20kw, nbElectricCar_50kw);
@@ -37,7 +41,7 @@ public class Parking {
     }
 
     /**
-     * Initialization
+     * Initialization the parking slots
      *
      * @param nbSedanCar
      * @param nbElectricCar_20kw
@@ -73,7 +77,7 @@ public class Parking {
     /**
      * Get the map of all the parking slot
      *
-     * @return Map<CarTypeEnum, List < ParkingSlot>>
+     * @return Map<CarTypeEnum, List <ParkingSlot>>
      */
     public Map<CarTypeEnum, List<ParkingSlot>> getParkingSlotsMap() {
         if (parkingSlotsMap == null || parkingSlotsMap.isEmpty()) {

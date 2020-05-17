@@ -1,6 +1,5 @@
 package com.tollparking.api;
 
-import com.tollparking.api.errors.TollParkingException;
 import com.tollparking.api.model.Car;
 import com.tollparking.api.model.CarTypeEnum;
 import com.tollparking.api.model.Parking;
@@ -77,7 +76,7 @@ class TollParkingTest {
                 .stream()
                 .map(future -> {
                     try {
-                        return future.get(100, TimeUnit.SECONDS);
+                        return future.get(20, TimeUnit.SECONDS);
                     } catch (Exception e) {
                         throw new IllegalStateException(e);
                     }

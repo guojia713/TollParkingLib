@@ -24,6 +24,7 @@ public class PayByHoursWithFixedAmount implements PricingPolicy {
 
     /**
      * Calculate the parking fee
+     * parking fee = fixed amount + hour price * nb hours
      * @param hours the number of parking hours
      * @return BigDecimal parking fee
      */
