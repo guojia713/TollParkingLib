@@ -113,7 +113,7 @@ Create a car by using :
 // Create a car type sedan car and carID = 1
 Car car = new Car(); 
 
-Or 
+//Or 
 
 // Create car with a given type and carID
 Car car = new Car(int carID, CarTypeEnum carType)
@@ -138,3 +138,8 @@ $ mvn clean install
 # Run the tests
 $ mvn test
 ```
+
+## Improvement
+
+- Generate JavaDoc (Had some errors when I try to generate it)
+- Add tests for exceptions
