@@ -3,11 +3,9 @@ package com.tollparking.api;
 import com.tollparking.api.model.Car;
 import com.tollparking.api.model.CarTypeEnum;
 import com.tollparking.api.model.Parking;
-import com.tollparking.api.model.PayByHoursWithFixedAmount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +29,7 @@ class TollParkingTest {
     void carCheckInTest() throws InterruptedException {
         Parking parking = new Parking();
 
-        Car car = new Car(0, getRandomCarType());
+        Car car = new Car();
         assertTrue(tollParking.carCheckIn(parking, car));
     }
 
@@ -40,7 +38,8 @@ class TollParkingTest {
 
         Parking parking = new Parking();
 
-        Car car0 = new Car(0, getRandomCarType());
+
+        Car car0 = new Car();
         if(tollParking.carCheckIn(parking, car0)) {
             assertTrue(tollParking.carCheckOut(parking, car0));
         }
