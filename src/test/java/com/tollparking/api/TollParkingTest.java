@@ -1,10 +1,10 @@
 package com.tollparking.api;
 
+import com.tollparking.api.errors.TollParkingException;
 import com.tollparking.api.model.Car;
 import com.tollparking.api.model.CarTypeEnum;
 import com.tollparking.api.model.Parking;
 import com.tollparking.api.model.PayByHoursWithFixedAmount;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +16,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class TollParkingTest {
 
-    private static TollParking tollParking;
+    private static TollParking tollParking  = new TollParking();;
 
     private static Random random = new Random();
 
@@ -26,11 +28,29 @@ class TollParkingTest {
 
     private final int NB_ENTRIES = 5; // Nb of entries
 
+    @Test
+    void carCheckInTest() throws InterruptedException {
+        Parking parking = new Parking();
 
-    @BeforeAll
-    static void init() {
-        tollParking = new TollParking();
+        Car car = new Car(0, getRandomCarType());
+        assertTrue(tollParking.carCheckIn(parking, car));
     }
+
+    @Test
+    void carCheckOutTest() throws Exception {
+
+        Parking parking = new Parking();
+
+        Car car0 = new Car(0, getRandomCarType());
+        if(tollParking.carCheckIn(parking, car0)) {
+            assertTrue(tollParking.carCheckOut(parking, car0));
+        }
+
+        Car car1 = new Car(1, getRandomCarType());
+        assertFalse(tollParking.carCheckOut(parking, car1));
+    }
+
+
 
     @Test
     @DisplayName("EndToEndTest")
@@ -44,7 +64,7 @@ class TollParkingTest {
 
        // We say that the nb of entries = nb of threads
         ExecutorService executor = Executors.newFixedThreadPool(NB_ENTRIES);
-        List<Callable<Car>> callables = new ArrayList<>();
+        List<Callable<Boolean>> callables = new ArrayList<>();
 
         // Cars arrive in order
        cars.stream()
@@ -71,11 +91,10 @@ class TollParkingTest {
      * @param car
      * @return
      */
-    private static Callable<Car> carCheckIn(Parking parking, Car car) {
+    private static Callable<Boolean> carCheckIn(Parking parking, Car car) {
         return () -> {
             TimeUnit.SECONDS.sleep(random.nextInt(10) + 0);
-            tollParking.carCheckIn(parking,car);
-            return car;
+            return tollParking.carCheckIn(parking,car);
         };
     }
 
@@ -84,12 +103,11 @@ class TollParkingTest {
      * @param car
      * @return
      */
-    private static Callable<Car> carCheckOut(Parking parking, Car car) {
+    private static Callable<Boolean> carCheckOut(Parking parking, Car car) {
         return () -> {
             Random random = new Random();
             TimeUnit.SECONDS.sleep(random.nextInt(10) + 5);
-            tollParking.carCheckOut(parking, car);
-            return car;
+            return tollParking.carCheckOut(parking, car);
         };
     }
 

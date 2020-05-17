@@ -58,7 +58,7 @@ public class Parking {
      */
     private void initParkingSlotsForEachType(int nbParkingSlots, CarTypeEnum authorizedCarType) {
         // Create a synchronized list for the parking slots
-        List<ParkingSlot> parkingSlots = Collections.synchronizedList(new ArrayList());
+        List<ParkingSlot> parkingSlots = Collections.synchronizedList(new ArrayList<>());
 
         IntStream.range(0, nbParkingSlots).forEach(p -> {
             ParkingSlot parkingSlot = new ParkingSlot();

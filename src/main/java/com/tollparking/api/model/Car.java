@@ -2,7 +2,6 @@ package com.tollparking.api.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import com.tollparking.api.model.*;
 
 /**
  * Class of Car
@@ -12,7 +11,7 @@ public class Car {
 
     private Integer carID; //ID of the car
 
-    private com.tollparking.api.model.CarTypeEnum carType; //Type of the car
+    private CarTypeEnum carType; //Type of the car
 
     private LocalDateTime arrivalTime; //The arrival time in the toll parking
 
@@ -45,7 +44,7 @@ public class Car {
 
     /**
      * Set car ID
-     * @param carID
+     * @param carID carID
      */
     public void setCarID(Integer carID) {
         this.carID = carID;
@@ -69,7 +68,7 @@ public class Car {
 
     /**
      * Set arrivalTime of the car
-     * @param arrivalTime
+     * @param arrivalTime arrivalTime
      */
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;

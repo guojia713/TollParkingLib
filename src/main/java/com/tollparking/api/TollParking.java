@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.tollparking.api.errors.TollParkingException;
 import com.tollparking.api.model.*;
 
 /**
@@ -20,14 +22,15 @@ public class TollParking {
     private Logger logger = Logger.getLogger(TollParking.class.getName());
 
     /**
-     * When a car comes, check if there is available slot of the right type
-     * Then park the car and print a message with arrival time.
+     * When a car check in, check if there is available slot of the right type
+     * Then park the car and log the parking details.
+     * Otherwise the car is refused by the parking.
      *
      * @param car
      * @return
      * @throws InterruptedException
      */
-    public boolean carCheckIn(Parking parking, Car car) throws InterruptedException {
+    public Boolean carCheckIn(Parking parking, Car car) throws InterruptedException {
 
         // Get the list of the parking slot by car type
         List<ParkingSlot> parkingSlotsByType = parking.getParkingSlotsMap().get(car.getCarType());
@@ -70,8 +73,6 @@ public class TollParking {
         ParkingSlot parkingSlotAvailable = parkingSlotAvailableOpt.get();
         parkingSlotAvailable.setOccupied(true);
         return parkingSlotAvailable.getParkingSlotID();
-
-
     }
 
     /**
@@ -81,7 +82,7 @@ public class TollParking {
      * @return
      * @throws Exception
      */
-    public boolean carCheckOut(Parking parking, Car car) throws Exception {
+    public Boolean carCheckOut(Parking parking, Car car) throws Exception {
 
         if (!car.isParked()) {
             return false;
@@ -101,12 +102,12 @@ public class TollParking {
         car.setParkingFee(bill);
 
         logger.log(Level.INFO, MessageBuilder.buildCarLeaveMessage(car.getCarID(), car.getCarType().name(),
-                parkingSlotID, duration.getSeconds()+1, car.getParkingFee(), car.getDepartureTime()));
+                parkingSlotID, duration.getSeconds() + 1, car.getParkingFee(), car.getDepartureTime()));
 
         return true;
     }
 
-    synchronized int findParkingSlotForACar(Parking parking, Car car) throws Exception {
+    synchronized int findParkingSlotForACar(Parking parking, Car car) throws TollParkingException {
         // Get the parking slot of this car
         Optional<ParkingSlot> parkingSlot = parking.getParkingSlotsMap().get(car.getCarType())
                 .stream()
@@ -116,7 +117,7 @@ public class TollParking {
 
         // Throw a exception if the car is not in the parking
         if (!parkingSlot.isPresent()) {
-            throw new Exception("ATTENTION : The car number <" + car.getCarID() + " > is not in the toll parking");
+            throw new TollParkingException("ATTENTION : The car number <" + car.getCarID() + " > is not in the toll parking");
         }
 
         // Free the parking slot
